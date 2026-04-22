@@ -1,7 +1,7 @@
 from django.db import models
 
 
-# Banco de Dados
+# Criando o models / Banco de Dados
 class Genre(models.Model):
     name = models.CharField(max_length=200)
 
