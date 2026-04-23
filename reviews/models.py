@@ -11,5 +11,5 @@ class Review(models.Model):
     comment = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return self.movie
+        return str(self.movie) # movie não é string, ele é um objeto do tipo Movie/ chave estrangeira, então precisamos convertê-lo para string para evitar erros.
 
