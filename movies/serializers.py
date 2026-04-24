@@ -14,8 +14,9 @@ class MovieModelSerializer(serializers.ModelSerializer):
     # Campos calculados
     # Pode ser feito em views. É mais performático e profissional | consultar views.py
     def get_rate(self, obj):
-        rate = obj.reviews.aggregate(Avg("stars"))['stars__avg'] or 0
-        return round(rate, 1)
+        rate = obj.reviews.aggregate(Avg("stars"))['stars__avg'] # or 0
+        if rate:
+            return round(rate, 1)
 
     # Validações
     def validate_release_date(self, value):
