@@ -1,7 +1,9 @@
-from rest_framework import generics
+from django.db.models import Count, Avg
+from rest_framework import generics, views, response
 from rest_framework.permissions import IsAuthenticated
 from movies.models import Movie
 from movies.serializers import MovieModelSerializer
+from reviews.models import Review
 
 
 class MovieListCreateView(generics.ListCreateAPIView):
@@ -16,6 +18,28 @@ class MovieRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MovieModelSerializer
 
 
+class MovieStatsView(views.APIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = Movie.objects.all()
+    
+    def get(self, request):
+        total_movies = Movie.objects.count() # ou self.queryset.count()
+        movies_by_genres = Movie.objects.values('genre__name').annotate(total=Count('id'))
+        total_reviews = Review.objects.count()
+        average_stars = Review.objects.aggregate(avg_stars=Avg('stars'))['avg_stars']
+
+        return response.Response({
+            'total_movies': total_movies,
+            'movies_by_genres': movies_by_genres,
+            'total_reviews': total_reviews,
+            'average_stars': round(average_stars, 1) if average_stars else 0, # Para não dar erro se nao houver avaliação
+        })
+
+
+
+# OBS: *args, **kwargs
+# Django (e o DRF) pode passar parâmetros extras automaticamente.
+# Se não colocar, pode dar erro dependendo de como ta a url.
 
 
 # Campos calculados 
