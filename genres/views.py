@@ -17,15 +17,14 @@ class GenreRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
 
+
 # No settings.py do app pode ser passado assim:
-#
+
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': [
 #         'rest_framework.permissions.IsAuthenticated',
 #         'core.permissions.GlobalDefaultPermission',
 #     ]
 # }
-#
+
 # Pode ser retirado o permission_classes = (IsAuthenticated, GlobalDefaultPermission,)
-
-

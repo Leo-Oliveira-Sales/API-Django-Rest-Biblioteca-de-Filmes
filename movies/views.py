@@ -7,7 +7,7 @@ from reviews.models import Review
 
 
 class MovieListCreateView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,) # autenticação
+    permission_classes = (IsAuthenticated,)  # autenticação
     queryset = Movie.objects.all()
     serializer_class = MovieModelSerializer
 
@@ -21,28 +21,22 @@ class MovieRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class MovieStatsView(views.APIView):
     permission_classes = (IsAuthenticated,)
     queryset = Movie.objects.all()
-    
+
     def get(self, request):
-        total_movies = Movie.objects.count() # ou self.queryset.count()
+        total_movies = Movie.objects.count()  # ou self.queryset.count()
         movies_by_genres = Movie.objects.values('genre__name').annotate(total=Count('id'))
         total_reviews = Review.objects.count()
-        average_stars = Review.objects.aggregate(avg_stars=Avg('stars'))['avg_stars']
+        average_stars = Review.objects.aggregate(avg=Avg('stars'))['avg']
 
         return response.Response({
             'total_movies': total_movies,
             'movies_by_genres': movies_by_genres,
             'total_reviews': total_reviews,
-            'average_stars': round(average_stars, 1) if average_stars else 0, # Para não dar erro se nao houver avaliação
+            'average_stars': round(average_stars, 1) if average_stars else 0,  # Evita erro se nao houver avaliação
         })
 
 
-
-# OBS: *args, **kwargs
-# Django (e o DRF) pode passar parâmetros extras automaticamente.
-# Se não colocar, pode dar erro dependendo de como ta a url.
-
-
-# Campos calculados 
+# Campos calculados
 # Pode ser feito em serializers porem aqui é mais performático e profissional | consultar serializers.py
 
 # por em serilaizers.py na class MovieModelSerializer:

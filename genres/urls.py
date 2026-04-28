@@ -6,4 +6,3 @@ urlpatterns = [
     path("genres/", views.GenreListCreateView.as_view(), name="genre_create_list"),
     path("genres/<int:pk>/", views.GenreRetrieveUpdateDestroyView.as_view(), name="genre_detail_view"),
 ]
-
