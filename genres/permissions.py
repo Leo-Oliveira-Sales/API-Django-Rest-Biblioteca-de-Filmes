@@ -1,14 +1,20 @@
-from rest_framework import permissions
+# from rest_framework import permissions
 
 
-# permissoes
-class GenrePermission(permissions.BasePermission):
+# # permissoes | CRUD Completo de genres
+# class GenrePermission(permissions.BasePermission):
 
-    def has_permission(self, request, view):
-        if request.method in ['GET', 'HEAD', 'OPTIONS']:
-            return request.user.has_perm('genres.view_genre')
+#     def has_permission(self, request, view):
+#         if request.method in ['GET', 'HEAD', 'OPTIONS']:
+#             return request.user.has_perm('genres.view_genre')
         
-        if request.method == 'POST':
-            return request.user.has_perm('genres.add_genre')
+#         if request.method == 'POST':
+#             return request.user.has_perm('genres.add_genre')
         
-        return False
+#         if request.method in ['PUT', 'PATCH']:
+#             return request.user.has_perm('genres.change_genre')
+        
+#         if request.method == 'DELETE':
+#             return request.user.has_perm('genres.delete_genre')
+        
+#         return False
