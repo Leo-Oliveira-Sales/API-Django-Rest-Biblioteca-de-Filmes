@@ -26,3 +26,11 @@ python manage.py migrate
 ## Ligar o Servidor:
 
 python manage.py runserver
+
+---
+
+*Abra o Projeto do Front End no VACode e Rode:*
+
+npm install
+
+npm run dev
