@@ -29,8 +29,3 @@ python manage.py runserver
 
 ---
 
-*Abra o Projeto do Front End no VSCode e Rode:*
-
-npm install
-
-npm run dev
